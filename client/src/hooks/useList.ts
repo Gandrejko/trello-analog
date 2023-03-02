@@ -9,8 +9,8 @@ export const useList = () => {
     socket.emit(ListEvent.CREATE, name);
   }
 
-  const deleteList = (name: string) => {
-    socket.emit(ListEvent.DELETE, name);
+  const deleteList = (id: string) => {
+    socket.emit(ListEvent.DELETE, id);
   }
 
   return {addList, deleteList};

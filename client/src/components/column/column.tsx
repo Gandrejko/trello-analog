@@ -44,7 +44,7 @@ export const Column = ({ listId, listName, cards, index }: Props) => {
               bold
             />
             <Splitter />
-            <DeleteButton color="#FFF0" onClick={() => deleteList(listName)} />
+            <DeleteButton color="#FFF0" onClick={() => deleteList(listId)} />
           </Header>
           <CardsList
             listId={listId}

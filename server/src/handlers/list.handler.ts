@@ -35,14 +35,13 @@ export class ListHandler extends SocketHandler {
     this.updateLists();
   }
 
-  private deleteList(name: string): void {
+  private deleteList(id: string): void {
     const lists = this.db.getData();
-    const index = lists.findIndex((list) => list.name === name);
+    const index = lists.findIndex((list) => list.id === id);
     if(index < 0) return;
 
     const newLists = lists.slice(0, index).concat(lists.slice(index + 1));
     this.db.setData(newLists);
     this.updateLists();
-
   }
 }
