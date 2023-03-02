@@ -4,6 +4,7 @@ enum CardEvent {
   DELETE = 'card:delete',
   RENAME = 'card:rename',
   CHANGE_DESCRIPTION = 'card:change-description',
+  DUPLICATE = 'card:duplicate',
 }
 
 export { CardEvent };
