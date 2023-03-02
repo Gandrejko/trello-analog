@@ -6,6 +6,7 @@ import { Database } from './data/database';
 import { CardHandler } from './handlers/card.handler';
 import { ListHandler } from './handlers/list.handler';
 import { ReorderService } from './services/reorder.service';
+import {LoggerService} from "./services/logger.service";
 
 const PORT = 3001;
 
@@ -25,8 +26,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const onConnection = (socket: Socket): void => {
-  new ListHandler(io, db, reorderService).handleConnection(socket);
-  new CardHandler(io, db, reorderService).handleConnection(socket);
+  new ListHandler(io, db, reorderService, new LoggerService('ListService')).handleConnection(socket);
+  new CardHandler(io, db, reorderService, new LoggerService('CardService')).handleConnection(socket);
 };
 
 io.on('connection', onConnection);

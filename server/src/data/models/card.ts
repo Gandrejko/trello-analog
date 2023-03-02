@@ -9,11 +9,17 @@ class Card {
 
   public createAt: Date;
 
+  public clone: () => Card;
+
   public constructor(name: string, description: string) {
     this.name = name;
     this.description = description;
     this.createAt = new Date();
     this.id = randomUUID();
+    // PATTERN:Prototype
+    this.clone = () => {
+      return new Card(name, description)
+    }
   }
 }
 

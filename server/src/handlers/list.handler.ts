@@ -3,8 +3,14 @@ import type { Socket } from 'socket.io';
 import { ListEvent } from '../common/enums';
 import { List } from '../data/models/list';
 import { SocketHandler } from './socket.handler';
+import { LoggerService } from "../services/logger.service";
 
 export class ListHandler extends SocketHandler {
+  private readonly logger: LoggerService;
+  constructor(io, db, reorderService, logger: LoggerService) {
+    super(io, db, reorderService);
+    this.logger = logger;
+  }
   public handleConnection(socket: Socket): void {
     socket.on(ListEvent.CREATE, this.createList.bind(this));
     socket.on(ListEvent.GET, this.getLists.bind(this));
@@ -29,7 +35,9 @@ export class ListHandler extends SocketHandler {
   }
 
   private createList(name: string): void {
-    if(!name) return;
+    if(name === '') {
+      return this.logger.warning('The name of the list cannot be empty');
+    }
     const lists = this.db.getData();
     const newList = new List(name);
     this.db.setData(lists.concat(newList));
@@ -39,7 +47,9 @@ export class ListHandler extends SocketHandler {
   private deleteList(id: string): void {
     const lists = this.db.getData();
     const index = lists.findIndex((list) => list.id === id);
-    if(index < 0) return;
+    if(index < 0) {
+      return this.logger.warning('List is not defined');
+    }
 
     const newLists = lists.slice(0, index).concat(lists.slice(index + 1));
     this.db.setData(newLists);
@@ -47,9 +57,14 @@ export class ListHandler extends SocketHandler {
   }
 
   private renameList(id: string, name: string): void {
+    if(name === '') {
+      return this.logger.warning('The name of the list cannot be empty');
+    }
     const lists = this.db.getData();
     const index = lists.findIndex((list) => list.id === id);
-    if(index < 0) return;
+    if(index < 0) {
+      return this.logger.warning('List is not defined');
+    }
     const list = lists[index];
     list.name = name;
 
