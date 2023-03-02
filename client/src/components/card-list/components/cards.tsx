@@ -15,7 +15,6 @@ type Props = {
 };
 
 const Cards = ({cards, listId}: Props) => {
-  const {removeCard} = useCard();
   return (
     <React.Fragment>
       {cards.map((card: Card, index: number) => (
@@ -25,7 +24,7 @@ const Cards = ({cards, listId}: Props) => {
             dragSnapshot: DraggableStateSnapshot,
           ) => (
             <CardItem
-              onClick={() => removeCard(listId, card.id)}
+              listId={listId}
               key={card.id}
               card={card}
               isDragging={dragSnapshot.isDragging}

@@ -53,8 +53,8 @@ export class ListHandler extends SocketHandler {
     const list = lists[index];
     list.name = name;
 
-    const newLists = lists.slice(0, index).concat(list).concat(lists.slice(index + 1));
-    this.db.setData(newLists);
+    const updatedList = lists.slice(0, index).concat(list).concat(lists.slice(index + 1));
+    this.db.setData(updatedList);
     this.updateLists();
   }
 }

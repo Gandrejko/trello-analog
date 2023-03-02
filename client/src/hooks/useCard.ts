@@ -13,5 +13,9 @@ export const useCard = () => {
     socket.emit(CardEvent.DELETE, listId, cardId);
   }
 
-  return { addCard, removeCard };
+  const renameCard = (listId: string, cardId: string, name: string) => {
+    socket.emit(CardEvent.RENAME, listId, cardId, name);
+  }
+
+  return { addCard, removeCard, renameCard };
 }
