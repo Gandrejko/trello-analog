@@ -14,6 +14,7 @@ import { Footer } from './components/footer';
 import { Container } from './styled/container';
 import { Header } from './styled/header';
 import {useCard} from "../../hooks/useCard";
+import {useList} from "../../hooks/useList";
 
 type Props = {
   listId: string;
@@ -24,6 +25,7 @@ type Props = {
 
 export const Column = ({ listId, listName, cards, index }: Props) => {
   const {addCard} = useCard();
+  const {deleteList} = useList();
   return (
     <Draggable draggableId={listId} index={index}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
@@ -42,7 +44,7 @@ export const Column = ({ listId, listName, cards, index }: Props) => {
               bold
             />
             <Splitter />
-            <DeleteButton color="#FFF0" onClick={() => {}} />
+            <DeleteButton color="#FFF0" onClick={() => deleteList(listName)} />
           </Header>
           <CardsList
             listId={listId}

@@ -31,7 +31,7 @@ export class CardHandler extends SocketHandler {
     const list = lists.find((list) => list.id === listId);
     const cards = list.cards;
     const index = cards.findIndex((card) => card.id === cardId);
-    if(index < 0) throw new Error('not found');
+    if(index < 0) return;
 
     const newCards = cards.slice(0, index).concat(cards.slice(index + 1))
     const updatedList = { ...list, cards: newCards };

@@ -25,7 +25,7 @@ export const Workspace = () => {
     socket.on(ListEvent.UPDATE, (lists: List[]) => setLists(lists));
   }, []);
 
-  const {removeList} = useList();
+  const {addList} = useList();
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -75,7 +75,7 @@ export const Workspace = () => {
                 />
               ))}
               {provided.placeholder}
-              <ColumnCreator onCreateList={(value) => removeList(value)} />
+              <ColumnCreator onCreateList={(value) => addList(value)} />
             </Container>
           )}
         </Droppable>
