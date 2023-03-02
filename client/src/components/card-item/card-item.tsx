@@ -21,7 +21,7 @@ type Props = {
 };
 
 export const CardItem = ({ card, isDragging, provided, listId }: Props) => {
-const {renameCard, removeCard} = useCard();
+const {renameCard, removeCard, changeDescriptionCard} = useCard();
   return (
     <Container
       className="card-container"
@@ -40,7 +40,7 @@ const {renameCard, removeCard} = useCard();
           fontSize="large"
           bold={true}
         />
-        <Text text={card.description} onChange={() => {}} />
+        <Text text={card.description} onChange={(value) => changeDescriptionCard(listId, card.id, value)} />
         <Footer>
           <DeleteButton onClick={() => removeCard(listId, card.id)} />
           <Splitter />
