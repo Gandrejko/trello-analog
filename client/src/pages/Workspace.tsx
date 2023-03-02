@@ -13,6 +13,8 @@ import { ColumnCreator } from '../components/column-creator/column-creator';
 import { SocketContext } from '../context/socket';
 import { reorderService } from '../services/reorder.service';
 import { Container } from './styled/container';
+import {Card} from "../common/types";
+import {useCardSocket} from "../hooks/useCardSocket";
 
 export const Workspace = () => {
   const [lists, setLists] = useState<List[]>([]);

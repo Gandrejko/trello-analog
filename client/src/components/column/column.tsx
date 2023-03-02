@@ -13,6 +13,7 @@ import { Title } from '../primitives/title';
 import { Footer } from './components/footer';
 import { Container } from './styled/container';
 import { Header } from './styled/header';
+import {useCardSocket} from "../../hooks/useCardSocket";
 
 type Props = {
   listId: string;
@@ -22,6 +23,7 @@ type Props = {
 };
 
 export const Column = ({ listId, listName, cards, index }: Props) => {
+  const {addCard} = useCardSocket();
   return (
     <Draggable draggableId={listId} index={index}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
@@ -50,7 +52,7 @@ export const Column = ({ listId, listName, cards, index }: Props) => {
             }}
             cards={cards}
           />
-          <Footer onCreateCard={() => {}} />
+          <Footer onCreateCard={(value) => addCard(listId, value)} />
         </Container>
       )}
     </Draggable>
