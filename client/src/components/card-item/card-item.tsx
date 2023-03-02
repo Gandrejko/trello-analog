@@ -11,7 +11,7 @@ import { Container } from "./styled/container";
 import { Content } from "./styled/content";
 import { Footer } from "./styled/footer";
 import {SocketContext} from "../../context/socket";
-import {useCardSocket} from "../../hooks/useCardSocket";
+import {useCard} from "../../hooks/useCard";
 
 type Props = {
   card: Card;
@@ -21,7 +21,7 @@ type Props = {
 };
 
 export const CardItem = ({ card, isDragging, provided, onClick }: Props) => {
-const {removeCard} = useCardSocket()
+const {removeCard} = useCard()
   return (
     <Container
       className="card-container"

@@ -2,7 +2,7 @@ import {useContext} from "react";
 import {SocketContext} from "../context/socket";
 import {CardEvent} from "../common/enums";
 
-export const useCardSocket = () => {
+export const useCard = () => {
   const socket = useContext(SocketContext);
 
   const addCard = (listId: string, cardName: string) => {

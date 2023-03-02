@@ -7,7 +7,7 @@ import React from 'react';
 
 import {Card} from '../../../common/types';
 import {CardItem} from '../../card-item/card-item';
-import {useCardSocket} from "../../../hooks/useCardSocket";
+import {useCard} from "../../../hooks/useCard";
 
 type Props = {
   cards: Card[];
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const Cards = ({cards, listId}: Props) => {
-  const {removeCard} = useCardSocket();
+  const {removeCard} = useCard();
   return (
     <React.Fragment>
       {cards.map((card: Card, index: number) => (

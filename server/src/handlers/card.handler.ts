@@ -13,6 +13,7 @@ export class CardHandler extends SocketHandler {
   }
 
   public createCard(listId: string, cardName: string): void {
+    if(!cardName) return;
     const newCard = new Card(cardName, '');
     const lists = this.db.getData();
     const list = lists.find((list) => list.id === listId);

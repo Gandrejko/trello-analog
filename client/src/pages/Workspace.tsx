@@ -11,10 +11,9 @@ import type { List } from '../common/types';
 import { Column } from '../components/column/column';
 import { ColumnCreator } from '../components/column-creator/column-creator';
 import { SocketContext } from '../context/socket';
-import { reorderService } from '../services/reorder.service';
+import {reorderCards, reorderLists} from '../services/reorder.service';
 import { Container } from './styled/container';
-import {Card} from "../common/types";
-import {useCardSocket} from "../hooks/useCardSocket";
+import {useList} from "../hooks/useList";
 
 export const Workspace = () => {
   const [lists, setLists] = useState<List[]>([]);
@@ -25,6 +24,8 @@ export const Workspace = () => {
     socket.emit(ListEvent.GET, (lists: List[]) => setLists(lists));
     socket.on(ListEvent.UPDATE, (lists: List[]) => setLists(lists));
   }, []);
+
+  const {removeList} = useList();
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -42,14 +43,14 @@ export const Workspace = () => {
 
     if (isReorderColumns) {
       setLists(
-        reorderService.reorderLists(lists, source.index, destination.index),
+        reorderLists(lists, source.index, destination.index),
       );
       socket.emit(ListEvent.REORDER, source.index, destination.index);
 
       return;
     }
 
-    setLists(reorderService.reorderCards(lists, source, destination));
+    setLists(reorderCards(lists, source, destination));
     socket.emit(CardEvent.REORDER, {
       sourceListId: source.droppableId,
       destinationListId: destination.droppableId,
@@ -74,7 +75,7 @@ export const Workspace = () => {
                 />
               ))}
               {provided.placeholder}
-              <ColumnCreator onCreateList={() => {}} />
+              <ColumnCreator onCreateList={(value) => removeList(value)} />
             </Container>
           )}
         </Droppable>
