@@ -25,7 +25,7 @@ type Props = {
 
 export const Column = ({ listId, listName, cards, index }: Props) => {
   const {addCard} = useCard();
-  const {deleteList} = useList();
+  const {deleteList, renameList} = useList();
   return (
     <Draggable draggableId={listId} index={index}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
@@ -38,7 +38,7 @@ export const Column = ({ listId, listName, cards, index }: Props) => {
             <Title
               aria-label={listName}
               title={listName}
-              onChange={() => {}}
+              onChange={(value) => renameList(listId, value)}
               fontSize="large"
               width={200}
               bold

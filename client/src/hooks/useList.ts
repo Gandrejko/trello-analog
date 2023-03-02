@@ -13,5 +13,9 @@ export const useList = () => {
     socket.emit(ListEvent.DELETE, id);
   }
 
-  return {addList, deleteList};
+  const renameList = (id: string, name: string) => {
+    socket.emit(ListEvent.RENAME, id, name);
+  }
+
+  return {addList, deleteList, renameList};
 }
